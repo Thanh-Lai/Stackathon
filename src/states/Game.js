@@ -1,5 +1,6 @@
 import { State } from 'phaser'
 import YellowBrick from '../prefabs/YellowBrick'
+import Paddle from '../prefabs/Paddle'
 
 export default class extends State {
   init () { }
@@ -7,7 +8,8 @@ export default class extends State {
 
   create () {
     this.setUpText()
-    this.setUpYellowBricks(this.ye)
+    this.setUpYellowBricks()
+    this.setUpPaddle()
   }
 
   setUpText () {
@@ -20,6 +22,15 @@ export default class extends State {
   setUpYellowBricks () {
     this.yellowBrick = this.game.add.group()
     this.generateYellowBricks(5, 15, 60, 50)
+  }
+
+  setUpPaddle () {
+    this.paddle = new Paddle(
+      this.game,
+      this.game.world.centerX,
+      this.game.world.height - 70
+    )
+    this.game.add.existing(this.paddle)
   }
 
   generateYellowBricks (inputRows, inputColumns, inputXOffset, inputYOffset) {
@@ -42,7 +53,7 @@ export default class extends State {
     let bricksGroupWidth = ((xOffset * columns) - (yOffset - yellowBrick.width)) / 2
     this.yellowBrick.position.setTo(
       this.game.world.centerX - bricksGroupWidth,
-      this.game.world.centerY - 300
+      this.game.world.centerY - 350
     )
   }
 

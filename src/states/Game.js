@@ -1,8 +1,13 @@
 import { State } from 'phaser'
 import YellowBrick from '../prefabs/YellowBrick'
 import Paddle from '../prefabs/Paddle'
+import Ball from '../prefabs/Ball'
 
 export default class extends State {
+  constructor () {
+    super()
+    this.ballOnPaddle = true
+  }
   init () { }
   preload () { }
 
@@ -10,6 +15,7 @@ export default class extends State {
     this.setUpText()
     this.setUpYellowBricks()
     this.setUpPaddle()
+    this.setUpBall()
   }
 
   setUpText () {
@@ -28,9 +34,20 @@ export default class extends State {
     this.paddle = new Paddle(
       this.game,
       this.game.world.centerX,
-      this.game.world.height - 70
+      this.game.world.height - 50
     )
     this.game.add.existing(this.paddle)
+  }
+
+  setUpBall () {
+    this.ball = new Ball(this.game)
+    this.game.add.existing(this.ball)
+    this.putBallInPaddle()
+  }
+
+  putBallInPaddle () {
+    this.ballOnPaddle = true
+    this.ball.reset(this.paddle.body.x, this.paddle.y - this.paddle.body.height - 25)
   }
 
   generateYellowBricks (inputRows, inputColumns, inputXOffset, inputYOffset) {
@@ -67,6 +84,12 @@ export default class extends State {
         fill: color,
         boundsAlignH: align}
     ).setTextBounds(0, 0, this.game.world.width, 0)
+  }
+
+  update () {
+    if (this.ballOnPaddle) {
+      this.ball.body.x = this.paddle.x - (this.ball.width / 2)
+    }
   }
 
   render () {

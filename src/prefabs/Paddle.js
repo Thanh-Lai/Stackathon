@@ -10,7 +10,6 @@ export default class Paddle extends Sprite {
   }
 
   update () {
-    console.log(this.game.input.x)
     this.x = this.game.input.x
     if (this.x < this.width / 2) {
       this.x = this.width / 2

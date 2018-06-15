@@ -12,6 +12,7 @@ export default class extends State {
   preload () { }
 
   create () {
+    this.game.physics.arcade.checkCollision.down = false
     this.setUpText()
     this.setUpYellowBricks()
     this.setUpPaddle()
@@ -43,6 +44,13 @@ export default class extends State {
   setUpBall () {
     this.ball = new Ball(this.game)
     this.game.add.existing(this.ball)
+    this.ball.events.onOutOfBounds.add(this.ballLost, this)
+    this.putBallInPaddle()
+  }
+
+  ballLost () {
+    --this.game.global.lives
+    this.livesText.text = `Lives: ${this.game.global.lives}`
     this.putBallInPaddle()
   }
 

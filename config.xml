@@ -1,11 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>PhaserES6Webpack</name>
+    <name>Leggo my Lego</name>
+    <author >
+        Thanh Lai
+    </author>
     <description>
+        Based on tutorial by Codecourse
     </description>
+    <name>PhaserES6Webpack</name>
     <author email="leandcabrera@gmail.com" href="">
         leandro cabrera
     </author>
+    <description>
+        Phaser Webpack Boilerplate by leandro cabrera
+    </description>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

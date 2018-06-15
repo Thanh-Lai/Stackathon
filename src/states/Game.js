@@ -20,7 +20,7 @@ export default class extends State {
   }
 
   setUpText () {
-    this.createText(0, 20, 'Welcome', '50px Ariel', '#ffffff', 'center')
+    this.createText(0, 20, '😝 Welcome 😋 ', '50px Ariel', '#ffffff', 'center')
     this.scoreText = this.createText(20, 50, `Score: ${this.game.global.score}`, '20px Ariel', '#ffffff', 'left')
     this.levelText = this.createText(20, 75, `Level: ${this.game.global.level}`, '20px Ariel', '#ffffff', 'left')
     this.livesText = this.createText(20, 100, `Lives: ${this.game.global.lives}`, '20px Ariel', '#ffffff', 'left')

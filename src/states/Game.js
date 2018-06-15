@@ -9,9 +9,7 @@ export default class extends State {
     this.ballOnPaddle = true
   }
   init () { }
-  preload () {
-    this.load.image('ball', './assets/images/head-ball.png')
-  }
+  preload () { }
 
   create () {
     this.game.physics.arcade.checkCollision.down = false

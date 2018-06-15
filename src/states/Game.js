@@ -16,6 +16,7 @@ export default class extends State {
     this.setUpYellowBricks()
     this.setUpPaddle()
     this.setUpBall()
+    this.game.input.onDown.add(this.releaseBall, this)
   }
 
   setUpText () {
@@ -43,6 +44,15 @@ export default class extends State {
     this.ball = new Ball(this.game)
     this.game.add.existing(this.ball)
     this.putBallInPaddle()
+  }
+
+  releaseBall () {
+    if (!this.ballOnPaddle) {
+      return
+    }
+    this.ballOnPaddle = false
+    this.ball.body.velocity.y = -300
+    this.ball.body.velocity.x = Math.floor(Math.random() * 200)
   }
 
   putBallInPaddle () {

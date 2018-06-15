@@ -52,7 +52,7 @@ export default class extends State {
     }
     this.ballOnPaddle = false
     this.ball.body.velocity.y = -300
-    this.ball.body.velocity.x = Math.floor(Math.random() * 200)
+    this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
   }
 
   putBallInPaddle () {
@@ -66,7 +66,6 @@ export default class extends State {
     let xOffset = inputXOffset
     let yOffset = inputYOffset
     let yellowBrick
-
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < columns; x++) {
         yellowBrick = new YellowBrick(
@@ -100,6 +99,42 @@ export default class extends State {
     if (this.ballOnPaddle) {
       this.ball.body.x = this.paddle.x - (this.ball.width / 2)
     }
+
+    this.game.physics.arcade.collide(
+      this.ball,
+      this.paddle,
+      this.ballHitPaddle,
+      null,
+      this
+    )
+
+    this.game.physics.arcade.collide(
+      this.ball,
+      this.yellowBrick,
+      this.ballHityellowBrick,
+      null,
+      this
+    )
+  }
+
+  ballHitPaddle (ball, paddle) {
+    this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    let diff = 0
+    if (ball.x < paddle.x) {
+      diff = paddle.x - ball.x
+      ball.body.velocity.x = (-10 * diff)
+      return ball.body.velocity.x
+    }
+    if (ball.x > paddle.x) {
+      diff = ball.x - paddle.x
+      ball.body.velocity.x = (25 * diff)
+      return ball.body.velocity.x
+    }
+  }
+
+  ballHityellowBrick (ball, brick) {
+    this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    brick.kill()
   }
 
   render () {

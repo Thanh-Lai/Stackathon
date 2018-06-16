@@ -1,7 +1,7 @@
-import { State } from 'phaser'
+import Phaser from 'phaser'
 import { centerGameObjects } from '../utils'
 
-export default class extends State {
+export default class extends Phaser.State {
   init () {}
 
   preload () {

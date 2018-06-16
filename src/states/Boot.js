@@ -1,10 +1,10 @@
-import Phaser from 'phaser'
+import { State } from 'phaser'
 import WebFont from 'webfontloader'
 import config from '../config'
 import globals from './globals'
 import { clone } from 'lodash'
 
-export default class extends Phaser.State {
+export default class extends State {
   init () {
     this.stage.backgroundColor = '#262539'
     this.fontsReady = false

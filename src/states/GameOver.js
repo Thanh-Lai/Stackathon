@@ -1,8 +1,8 @@
-import Phaser from 'phaser'
+import { State } from 'phaser'
 import { clone } from 'lodash'
 import globals from './globals'
 
-export default class extends Phaser.State {
+export default class extends State {
   init () {}
 
   preload () {

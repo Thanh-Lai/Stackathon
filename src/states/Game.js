@@ -81,6 +81,7 @@ export default class extends State {
       return
     }
     this.ballOnPaddle = false
+    this.ouch.play()
     this.ball.body.velocity.y = -300
     this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
   }
@@ -149,8 +150,8 @@ export default class extends State {
 
   ballHitPaddle (ball, paddle) {
     this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
-    this.ouch.stopTime = 2
-    this.ouch.play()
+    // this.ouch.stopTime = 2
+    // this.ouch.play()
     let diff = 0
     if (ball.x < paddle.x) {
       diff = paddle.x - ball.x

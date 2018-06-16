@@ -1,8 +1,8 @@
 import { Sprite, Physics } from 'phaser'
 
-export default class MovingBricks extends Sprite {
+export default class ObstacleBricks extends Sprite {
   constructor (game, x, y) {
-    super(game, x, y, 'yellowBrick')
+    super(game, x, y, 'obstacleBrick')
     this.game.physics.arcade.enableBody(this)
     this.body.immovable = true
     this.game.physics.enable(this, Physics.ARCADE)
@@ -13,6 +13,6 @@ export default class MovingBricks extends Sprite {
     this.body.bounce.y = 0
     this.body.bounce.x = 1
     this.body.collideWorldBounds = true
-    this.body.velocity.x = 50
+    this.body.velocity.x = 100
   }
 }

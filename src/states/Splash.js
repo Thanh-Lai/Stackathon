@@ -10,12 +10,9 @@ export default class extends State {
     centerGameObjects([this.loaderBg, this.loaderBar])
 
     this.load.setPreloadSprite(this.loaderBar)
-    //
-    // load your assets
-    //
   }
 
   create () {
-    this.state.start('LevelTwo')
+    this.state.start('LevelThree')
   }
 }

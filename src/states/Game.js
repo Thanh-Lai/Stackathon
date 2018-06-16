@@ -8,8 +8,11 @@ export default class extends State {
     super()
     this.ballOnPaddle = true
   }
+
   init () { }
-  preload () { }
+  preload () {
+    this.load.audio('ouch', './assets/audio/ouch.mp3')
+  }
 
   create () {
     this.game.physics.arcade.checkCollision.down = false
@@ -18,6 +21,7 @@ export default class extends State {
     this.setUpPaddle()
     this.setUpBall()
     this.game.input.onDown.add(this.releaseBall, this)
+    this.ouch = this.game.add.audio('ouch')
   }
 
   setUpText () {
@@ -29,7 +33,7 @@ export default class extends State {
 
   setUpYellowBricks () {
     this.yellowBrick = this.game.add.group()
-    this.generateYellowBricks(1, 1, 60, 50)
+    this.generateYellowBricks(1, 2, 60, 50)
   }
 
   setUpPaddle () {
@@ -134,6 +138,7 @@ export default class extends State {
 
   ballHitPaddle (ball, paddle) {
     this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    this.ouch.play()
     let diff = 0
     if (ball.x < paddle.x) {
       diff = paddle.x - ball.x
@@ -148,11 +153,11 @@ export default class extends State {
   }
 
   ballHityellowBrick (ball, brick) {
+    this.ouch.play()
     this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
     brick.kill()
     this.game.global.score++
     this.scoreText.text = `Score: ${this.game.global.score}`
-
     if (this.yellowBrick.countLiving() > 0) {
       return this.yellowBrick.countLiving()
     }

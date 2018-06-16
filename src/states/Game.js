@@ -42,7 +42,7 @@ export default class extends State {
 
   setUpYellowBricks () {
     this.yellowBrick = this.game.add.group()
-    this.generateYellowBricks(1, 2, 60, 50)
+    this.generateYellowBricks(1, 1, 60, 50)
   }
 
   setUpPaddle () {
@@ -149,8 +149,8 @@ export default class extends State {
 
   ballHitPaddle (ball, paddle) {
     this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    this.ouch.stopTime = 2
     this.ouch.play()
-    this.ouch.totalDuration = 2
     let diff = 0
     if (ball.x < paddle.x) {
       diff = paddle.x - ball.x
@@ -174,11 +174,17 @@ export default class extends State {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
-    this.levelText.text = `Level: ${this.game.global.level}`
-    this.putBallInPaddle()
-    this.generateYellowBricks(1, 1, 60, 50)
+    // this.levelText.text = `Level: ${this.game.global.level}`
+    // this.putBallInPaddle()
+    // this.generateYellowBricks(1, 1, 60, 50)
+    if (this.game.global.level === 2) {
+      return this.levelTwo()
+    }
   }
 
+  levelTwo () {
+    this.game.state.start('LevelTwo')
+  }
   render () {
 
   }

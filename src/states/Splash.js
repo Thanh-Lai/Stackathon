@@ -16,6 +16,6 @@ export default class extends State {
   }
 
   create () {
-    this.state.start('Game')
+    this.state.start('LevelTwo')
   }
 }

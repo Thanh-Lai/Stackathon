@@ -1,5 +1,5 @@
-import { State } from 'phaser'
-import YellowBrick from '../prefabs/YellowBrick'
+import { State, Physics } from 'phaser'
+import MovingBricks from '../prefabs/MovingBricks'
 import Paddle from '../prefabs/Paddle'
 import Ball from '../prefabs/Ball'
 
@@ -42,7 +42,15 @@ export default class extends State {
 
   setUpYellowBricks () {
     this.yellowBrick = this.game.add.group()
-    this.generateYellowBricks(1, 2, 60, 50)
+    let xOffset = 60
+    let yOffset = 50
+    let columns = 2
+    let rows = 2
+    let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.yellowBrick.width)) / 2
+    let centerX = this.game.world.centerX - bricksGroupWidth
+    let centerY = this.game.world.centerY - 350
+    this.generateYellowBricks(rows, columns, xOffset, yOffset, centerX, centerY)
+    this.generateYellowBricks(1, 2, xOffset, yOffset, centerX, centerY)
   }
 
   setUpPaddle () {
@@ -90,7 +98,7 @@ export default class extends State {
     this.ball.reset(this.paddle.body.x, this.paddle.y - this.paddle.body.height - 25)
   }
 
-  generateYellowBricks (inputRows, inputColumns, inputXOffset, inputYOffset) {
+  generateYellowBricks (inputRows, inputColumns, inputXOffset, inputYOffset, centerX, centerY) {
     let rows = inputRows
     let columns = inputColumns
     let xOffset = inputXOffset
@@ -98,7 +106,7 @@ export default class extends State {
     let yellowBrick
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < columns; x++) {
-        yellowBrick = new YellowBrick(
+        yellowBrick = new MovingBricks(
           this.game,
           x * xOffset,
           y * yOffset
@@ -106,10 +114,9 @@ export default class extends State {
         this.yellowBrick.add(yellowBrick)
       }
     }
-    let bricksGroupWidth = ((xOffset * columns) - (yOffset - yellowBrick.width)) / 2
     this.yellowBrick.position.setTo(
-      this.game.world.centerX - bricksGroupWidth,
-      this.game.world.centerY - 350
+      centerX,
+      centerY
     )
   }
 

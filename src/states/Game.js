@@ -12,6 +12,7 @@ export default class extends State {
   init () { }
   preload () {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
+    this.load.audio('oops', './assets/audio/Oops.mp3')
   }
 
   create () {
@@ -53,6 +54,8 @@ export default class extends State {
   }
 
   ballLost () {
+    this.oops = this.game.add.audio('oops')
+    this.oops.play()
     --this.game.global.lives
     if (this.game.global.lives === 0) {
       return this.endGame()

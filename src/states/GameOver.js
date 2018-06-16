@@ -6,6 +6,7 @@ export default class extends Phaser.State {
   init () {}
 
   preload () {
+    this.load.audio('GameOver', './assets/audio/Game-Over.mp3')
   }
 
   create () {
@@ -20,6 +21,7 @@ export default class extends Phaser.State {
     )
     text.anchor.set(0.5)
     this.input.onDown.add(this.restartGame, this)
+    this.game.add.audio('GameOver').play()
   }
 
   restartGame () {

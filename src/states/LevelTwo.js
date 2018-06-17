@@ -1,7 +1,12 @@
 import { State } from 'phaser'
-import YellowBrick from '../prefabs/YellowBrick'
+import MovingBricks from '../prefabs/MovingBricks'
 import Paddle from '../prefabs/Paddle'
 import Ball from '../prefabs/Ball'
+
+let xOffset = 60
+let yOffset = 50
+let rows = 1
+let columns = 1
 
 export default class extends State {
   constructor () {
@@ -9,10 +14,12 @@ export default class extends State {
     this.ballOnPaddle = true
   }
 
-  init () { }
+  init () {}
+
   preload () {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
     this.load.audio('oops', './assets/audio/Oops.mp3')
+    this.load.audio('LevelUp', './assets/audio/Level-Up-Sound.mp3')
   }
 
   create () {
@@ -23,16 +30,15 @@ export default class extends State {
     this.setUpBall()
     this.game.input.onDown.add(this.releaseBall, this)
     this.ouch = this.game.add.audio('ouch')
-    this.levelOneText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level One', { font: '65px Arial', fill: '#33cc33', align: 'center' })
-    this.levelOneText.anchor.setTo(0.5, 0.5)
+    this.levelTwoText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level Two', { font: '65px Arial', fill: '#33cc33', align: 'center' })
+    this.levelTwoText.anchor.setTo(0.5, 0.5)
     this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
     this.clickAnywhereText.anchor.setTo(0.5, 0.5)
-
     this.game.input.onDown.addOnce(this.removeText, this)
+    this.game.add.audio('LevelUp').play()
   }
-
   removeText () {
-    this.levelOneText.destroy()
+    this.levelTwoText.destroy()
     this.clickAnywhereText.destroy()
   }
 
@@ -45,7 +51,10 @@ export default class extends State {
 
   setUpYellowBricks () {
     this.yellowBrick = this.game.add.group()
-    this.generateYellowBricks(1, 1, 60, 50)
+    let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.yellowBrick.width)) / 2
+    let centerX = this.game.world.centerX - bricksGroupWidth
+    let centerY = this.game.world.centerY - 350
+    this.generateYellowBricks(rows, columns, xOffset, yOffset, centerX, centerY)
   }
 
   setUpPaddle () {
@@ -93,7 +102,7 @@ export default class extends State {
     this.ball.reset(this.paddle.body.x, this.paddle.y - this.paddle.body.height - 25)
   }
 
-  generateYellowBricks (inputRows, inputColumns, inputXOffset, inputYOffset) {
+  generateYellowBricks (inputRows, inputColumns, inputXOffset, inputYOffset, centerX, centerY) {
     let rows = inputRows
     let columns = inputColumns
     let xOffset = inputXOffset
@@ -101,7 +110,7 @@ export default class extends State {
     let yellowBrick
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < columns; x++) {
-        yellowBrick = new YellowBrick(
+        yellowBrick = new MovingBricks(
           this.game,
           x * xOffset,
           y * yOffset
@@ -109,10 +118,9 @@ export default class extends State {
         this.yellowBrick.add(yellowBrick)
       }
     }
-    let bricksGroupWidth = ((xOffset * columns) - (yOffset - yellowBrick.width)) / 2
     this.yellowBrick.position.setTo(
-      this.game.world.centerX - bricksGroupWidth,
-      this.game.world.centerY - 350
+      centerX,
+      centerY
     )
   }
 
@@ -177,16 +185,13 @@ export default class extends State {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
-    if (this.game.global.level === 2) {
-      return this.levelTwo()
+
+    if (this.game.global.level === 3) {
+      return this.levelThree()
     }
   }
 
-  levelTwo () {
-    this.game.state.start('LevelTwo')
-  }
-
-  render () {
-
+  levelThree () {
+    this.game.state.start('LevelThree')
   }
 }

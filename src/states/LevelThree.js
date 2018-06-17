@@ -6,8 +6,8 @@ import ObstacleBricks from '../prefabs/ObstacleBricks'
 
 let xOffset = 60
 let yOffset = 50
-let rows = 5
-let columns = 15
+let rows = 1
+let columns = 1
 
 export default class extends State {
   constructor () {
@@ -20,7 +20,7 @@ export default class extends State {
   preload () {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
     this.load.audio('oops', './assets/audio/Oops.mp3')
-    this.load.audio('LevelUp', './assets/audio/Level-Up-Sound.mp3')
+    this.load.audio('levelUp', './assets/audio/Level-Up-Sound.mp3')
   }
 
   create () {
@@ -34,10 +34,10 @@ export default class extends State {
     this.ouch = this.game.add.audio('ouch')
     this.levelTwoText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level Three', { font: '65px Arial', fill: '#33cc33', align: 'center' })
     this.levelTwoText.anchor.setTo(0.5, 0.5)
-    this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
+    this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on the screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
     this.clickAnywhereText.anchor.setTo(0.5, 0.5)
     this.game.input.onDown.addOnce(this.removeText, this)
-    this.game.add.audio('LevelUp').play()
+    this.game.add.audio('levelUp').play()
   }
   removeText () {
     this.levelTwoText.destroy()
@@ -224,12 +224,20 @@ export default class extends State {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
-    this.levelText.text = `Level: ${this.game.global.level}`
-    this.putBallInPaddle()
+    if (this.game.global.level === 4) {
+      return this.youWin()
+    }
   }
 
   ballHitobstacleBrick (ball, brick) {
     this.ouch.play()
     this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    if (this.game.global.level === 4) {
+      return this.youWin()
+    }
+  }
+
+  youWin () {
+    this.game.state.start('YouWin')
   }
 }

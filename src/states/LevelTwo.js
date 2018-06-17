@@ -19,7 +19,7 @@ export default class extends State {
   preload () {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
     this.load.audio('oops', './assets/audio/Oops.mp3')
-    this.load.audio('LevelUp', './assets/audio/Level-Up-Sound.mp3')
+    this.load.audio('levelUp', './assets/audio/Level-Up-Sound.mp3')
   }
 
   create () {
@@ -32,10 +32,10 @@ export default class extends State {
     this.ouch = this.game.add.audio('ouch')
     this.levelTwoText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level Two', { font: '65px Arial', fill: '#33cc33', align: 'center' })
     this.levelTwoText.anchor.setTo(0.5, 0.5)
-    this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
+    this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on the screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
     this.clickAnywhereText.anchor.setTo(0.5, 0.5)
     this.game.input.onDown.addOnce(this.removeText, this)
-    this.game.add.audio('LevelUp').play()
+    this.game.add.audio('levelUp').play()
   }
   removeText () {
     this.levelTwoText.destroy()

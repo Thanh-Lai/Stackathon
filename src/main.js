@@ -9,6 +9,7 @@ import GameOverState from './states/GameOver'
 import LevelTwoState from './states/LevelTwo'
 import LevelThreeState from './states/LevelThree'
 import LandingPageState from './states/LandingPage'
+import YouWinState from './states/YouWin'
 
 import config from './config'
 
@@ -27,6 +28,7 @@ class Game extends Phaser.Game {
     this.state.add('LevelTwo', LevelTwoState, false)
     this.state.add('LevelThree', LevelThreeState, false)
     this.state.add('GameOver', GameOverState, false)
+    this.state.add('YouWin', YouWinState, false)
     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
     if (!window.cordova) {
       this.state.start('Boot')

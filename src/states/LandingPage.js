@@ -15,7 +15,7 @@ export default class extends State {
     // this.letsGoFig.animations.play('left')
     let startGame = this.add.text(
       this.game.width * 0.5, this.game.height * 0.5,
-      `Welcome\nPlay Leggo my Lego`,
+      `Welcome\n😝 Leggo my Lego 😋`,
       {
         font: '50px Ariel',
         fill: '#ff9900',
@@ -25,7 +25,7 @@ export default class extends State {
 
     let clickAnywhereText = this.game.add.text(
       this.game.world.centerX, this.game.world.centerY + 150,
-      'Click anywhere on screen to play',
+      '\n\nClick anywhere on the screen to play\n\nRules:\nYellow Bricks: 1 point\nBlue Cones: 5 points\n\nBy Thanh Lai',
       { font: '25px Arial',
         fill: '#ff9900',
         align: 'center'

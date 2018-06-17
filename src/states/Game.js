@@ -25,7 +25,7 @@ export default class extends State {
     this.ouch = this.game.add.audio('ouch')
     this.levelOneText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level One', { font: '65px Arial', fill: '#33cc33', align: 'center' })
     this.levelOneText.anchor.setTo(0.5, 0.5)
-    this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
+    this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on the screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
     this.clickAnywhereText.anchor.setTo(0.5, 0.5)
 
     this.game.input.onDown.addOnce(this.removeText, this)

@@ -5,8 +5,8 @@ import Ball from '../prefabs/Ball'
 
 let xOffset = 60
 let yOffset = 50
-let rows = 1
-let columns = 1
+let rows = 2
+let columns = 3
 
 export default class extends State {
   constructor () {

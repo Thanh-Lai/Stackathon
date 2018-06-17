@@ -2,6 +2,7 @@ import { State } from 'phaser'
 import MovingBricks from '../prefabs/MovingBricks'
 import Paddle from '../prefabs/Paddle'
 import Ball from '../prefabs/Ball'
+import BonusCone from '../prefabs/BonusCone'
 
 let xOffset = 60
 let yOffset = 50
@@ -20,6 +21,7 @@ export default class extends State {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
     this.load.audio('oops', './assets/audio/Oops.mp3')
     this.load.audio('levelUp', './assets/audio/Level-Up-Sound.mp3')
+    this.load.audio('bonus', './assets/audio/Bonus-Sound.mp3')
   }
 
   create () {
@@ -28,6 +30,7 @@ export default class extends State {
     this.setUpYellowBricks()
     this.setUpPaddle()
     this.setUpBall()
+    this.setUpBonusCone()
     this.game.input.onDown.add(this.releaseBall, this)
     this.ouch = this.game.add.audio('ouch')
     this.levelTwoText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level Two', { font: '65px Arial', fill: '#33cc33', align: 'center' })
@@ -55,6 +58,13 @@ export default class extends State {
     let centerX = this.game.world.centerX - bricksGroupWidth
     let centerY = this.game.world.centerY - 350
     this.generateYellowBricks(rows, columns, xOffset, yOffset, centerX, centerY)
+  }
+
+  setUpBonusCone () {
+    this.bonusCone = this.game.add.group()
+    let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.bonusCone.width)) / 2
+    let centerX = this.game.world.centerX - bricksGroupWidth
+    this.generateBonusCone(1, 5, xOffset, yOffset, centerX, this.yellowBrick.height - 100)
   }
 
   setUpPaddle () {
@@ -124,6 +134,28 @@ export default class extends State {
     )
   }
 
+  generateBonusCone (inputRows, inputColumns, inputXOffset, inputYOffset, centerX, centerY) {
+    let rows = inputRows
+    let columns = inputColumns
+    let xOffset = inputXOffset
+    let yOffset = inputYOffset
+    let bonusCone
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < columns; x++) {
+        bonusCone = new BonusCone(
+          this.game,
+          x * xOffset,
+          y * yOffset
+        )
+        this.bonusCone.add(bonusCone)
+      }
+    }
+    this.bonusCone.position.setTo(
+      centerX,
+      centerY
+    )
+  }
+
   createText (xOffset, yOffset, text, font, color, align) {
     return this.game.add.text(
       xOffset,
@@ -156,6 +188,14 @@ export default class extends State {
       null,
       this
     )
+
+    this.game.physics.arcade.collide(
+      this.ball,
+      this.bonusCone,
+      this.ballHitBonusCone,
+      null,
+      this
+    )
   }
 
   ballHitPaddle (ball, paddle) {
@@ -183,6 +223,22 @@ export default class extends State {
     this.scoreText.text = `Score: ${this.game.global.score}`
     if (this.yellowBrick.countLiving() > 0) {
       return this.yellowBrick.countLiving()
+    }
+    this.game.global.level++
+
+    if (this.game.global.level === 3) {
+      return this.levelThree()
+    }
+  }
+
+  ballHitBonusCone (ball, brick) {
+    this.game.add.audio('bonus').play()
+    this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    brick.kill()
+    this.game.global.score += 5
+    this.scoreText.text = `Score: ${this.game.global.score}`
+    if (this.bonusCone.countLiving() > 0) {
+      return this.bonusCone.countLiving()
     }
     this.game.global.level++
 

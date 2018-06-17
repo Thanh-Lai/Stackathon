@@ -5,14 +5,11 @@ export default class extends State {
 
   preload () {
     this.game.load.spritesheet('letGo', './assets/images/lets-go.gif')
+    this.load.audio('awesome', './assets/audio/Awesome.mp3')
   }
 
   create () {
     this.letsGoFig = this.game.add.sprite(this.game.width * 0.5 - 250, 30, 'letGo')
-    // this.letsGoFig.frame = 3
-    // this.letsGoFig.animations.add('left', [0, 1, 2, 3], 10, true)
-    // this.letsGoFig.animations.add('right', [5, 6, 7, 8], 10, true)
-    // this.letsGoFig.animations.play('left')
     let startGame = this.add.text(
       this.game.width * 0.5, this.game.height * 0.5,
       `Welcome\n😝 Leggo my Lego 😋`,
@@ -31,10 +28,12 @@ export default class extends State {
         align: 'center'
       })
     clickAnywhereText.anchor.setTo(0.5, 0.5)
+    this.game.add.audio('awesome').play()
     this.input.onDown.add(this.playGame, this)
   }
 
   playGame () {
+    this.game.sound.stopAll()
     this.game.state.start('Game')
   }
 }

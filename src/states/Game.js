@@ -9,7 +9,8 @@ export default class extends State {
     this.ballOnPaddle = true
   }
 
-  init () { }
+  init () {
+  }
   preload () {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
     this.load.audio('oops', './assets/audio/Oops.mp3')
@@ -27,7 +28,6 @@ export default class extends State {
     this.levelOneText.anchor.setTo(0.5, 0.5)
     this.clickAnywhereText = this.game.add.text(this.game.world.centerX, this.game.world.centerY + 100, 'Click anywhere on the screen to play', { font: '25px Arial', fill: '#33cc33', align: 'center' })
     this.clickAnywhereText.anchor.setTo(0.5, 0.5)
-
     this.game.input.onDown.addOnce(this.removeText, this)
   }
 

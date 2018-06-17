@@ -177,9 +177,6 @@ export default class extends State {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
-    // this.levelText.text = `Level: ${this.game.global.level}`
-    // this.putBallInPaddle()
-    // this.generateYellowBricks(1, 1, 60, 50)
     if (this.game.global.level === 2) {
       return this.levelTwo()
     }
@@ -188,6 +185,7 @@ export default class extends State {
   levelTwo () {
     this.game.state.start('LevelTwo')
   }
+
   render () {
 
   }

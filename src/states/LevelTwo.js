@@ -2,12 +2,11 @@ import { State } from 'phaser'
 import MovingBricks from '../prefabs/MovingBricks'
 import Paddle from '../prefabs/Paddle'
 import Ball from '../prefabs/Ball'
-import ObstacleBricks from '../prefabs/ObstacleBricks'
 
 let xOffset = 60
 let yOffset = 50
-let rows = 5
-let columns = 15
+let rows = 1
+let columns = 1
 
 export default class extends State {
   constructor () {
@@ -29,7 +28,6 @@ export default class extends State {
     this.setUpYellowBricks()
     this.setUpPaddle()
     this.setUpBall()
-    this.setUpObstacleBricks()
     this.game.input.onDown.add(this.releaseBall, this)
     this.ouch = this.game.add.audio('ouch')
     this.levelTwoText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level Two', { font: '65px Arial', fill: '#33cc33', align: 'center' })
@@ -57,13 +55,6 @@ export default class extends State {
     let centerX = this.game.world.centerX - bricksGroupWidth
     let centerY = this.game.world.centerY - 350
     this.generateYellowBricks(rows, columns, xOffset, yOffset, centerX, centerY)
-  }
-
-  setUpObstacleBricks () {
-    this.obstacleBrick = this.game.add.group()
-    let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.obstacleBrick.width)) / 2
-    let centerX = this.game.world.centerX - bricksGroupWidth
-    this.generateObstacleBricks(1, 5, 150, yOffset, centerX, this.yellowBrick.height + 150)
   }
 
   setUpPaddle () {
@@ -133,28 +124,6 @@ export default class extends State {
     )
   }
 
-  generateObstacleBricks (inputRows, inputColumns, inputXOffset, inputYOffset, centerX, centerY) {
-    let rows = inputRows
-    let columns = inputColumns
-    let xOffset = inputXOffset
-    let yOffset = inputYOffset
-    let ostacleBrick
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < columns; x++) {
-        ostacleBrick = new ObstacleBricks(
-          this.game,
-          x * xOffset,
-          y * yOffset
-        )
-        this.obstacleBrick.add(ostacleBrick)
-      }
-    }
-    this.obstacleBrick.position.setTo(
-      centerX,
-      centerY
-    )
-  }
-
   createText (xOffset, yOffset, text, font, color, align) {
     return this.game.add.text(
       xOffset,
@@ -187,14 +156,6 @@ export default class extends State {
       null,
       this
     )
-
-    this.game.physics.arcade.collide(
-      this.ball,
-      this.obstacleBrick,
-      this.ballHitobstacleBrick,
-      null,
-      this
-    )
   }
 
   ballHitPaddle (ball, paddle) {
@@ -224,12 +185,13 @@ export default class extends State {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
-    this.levelText.text = `Level: ${this.game.global.level}`
-    this.putBallInPaddle()
+
+    if (this.game.global.level === 3) {
+      return this.levelThree()
+    }
   }
 
-  ballHitobstacleBrick (ball, brick) {
-    this.ouch.play()
-    this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+  levelThree () {
+    this.game.state.start('LevelThree')
   }
 }

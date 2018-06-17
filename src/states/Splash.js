@@ -13,6 +13,6 @@ export default class extends State {
   }
 
   create () {
-    this.state.start('LevelThree')
+    this.state.start('LandingPage')
   }
 }

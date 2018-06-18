@@ -64,7 +64,7 @@ export default class extends State {
     this.bonusCone = this.game.add.group()
     let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.bonusCone.width)) / 2
     let centerX = this.game.world.centerX - bricksGroupWidth
-    this.generateBonusCone(1, 5, 200, yOffset, centerX, this.yellowBrick.height - 100)
+    this.generateBonusCone(1, 5, 200, yOffset, centerX, this.yellowBrick.height - 200)
   }
 
   setUpPaddle () {
@@ -221,7 +221,7 @@ export default class extends State {
     brick.kill()
     this.game.global.score++
     this.scoreText.text = `Score: ${this.game.global.score}`
-    if (this.yellowBrick.countLiving() > 0) {
+    if (this.yellowBrick.countLiving() > 0 && this.yellowBrick.countLiving() > 0) {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
@@ -237,10 +237,10 @@ export default class extends State {
     brick.kill()
     this.game.global.score += 5
     this.scoreText.text = `Score: ${this.game.global.score}`
-    if (this.bonusCone.countLiving() > 0) {
+    if (this.bonusCone.countLiving() > 0 && this.yellowBrick.countLiving() > 0) {
       return this.bonusCone.countLiving()
     }
-    this.game.global.level++
+    // this.game.global.level++
 
     if (this.game.global.level === 3) {
       return this.levelThree()

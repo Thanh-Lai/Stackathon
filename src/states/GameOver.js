@@ -23,7 +23,7 @@ export default class extends State {
 
     let scoreLevelText = this.add.text(
       this.game.width * 0.5, this.game.height * 0.6,
-      `Your Score: ${this.game.global.score}\n\nYour Level: ${this.game.global.level}`,
+      `\n\nYour Score: ${this.game.global.score}\n\nYour Level: ${this.game.global.level}\n\nClick anywhere on the screen to play again!`,
       {
         font: '20px Ariel',
         fill: '#ff0000',

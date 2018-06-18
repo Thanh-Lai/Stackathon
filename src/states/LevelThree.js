@@ -3,11 +3,12 @@ import MovingBricks from '../prefabs/MovingBricks'
 import Paddle from '../prefabs/Paddle'
 import Ball from '../prefabs/Ball'
 import ObstacleBricks from '../prefabs/ObstacleBricks'
+import BonusCone from '../prefabs/BonusCone'
 
 let xOffset = 60
 let yOffset = 50
 let rows = 1
-let columns = 1
+let columns = 2
 
 export default class extends State {
   constructor () {
@@ -21,6 +22,7 @@ export default class extends State {
     this.load.audio('ouch', './assets/audio/ouch.mp3')
     this.load.audio('oops', './assets/audio/Oops.mp3')
     this.load.audio('levelUp', './assets/audio/Level-Up-Sound.mp3')
+    this.load.audio('bonus', './assets/audio/Bonus-Sound.mp3')
   }
 
   create () {
@@ -30,6 +32,7 @@ export default class extends State {
     this.setUpPaddle()
     this.setUpBall()
     this.setUpObstacleBricks()
+    this.setUpBonusCone()
     this.game.input.onDown.add(this.releaseBall, this)
     this.ouch = this.game.add.audio('ouch')
     this.levelTwoText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Level Three', { font: '65px Arial', fill: '#33cc33', align: 'center' })
@@ -57,6 +60,13 @@ export default class extends State {
     let centerX = this.game.world.centerX - bricksGroupWidth
     let centerY = this.game.world.centerY - 350
     this.generateYellowBricks(rows, columns, xOffset, yOffset, centerX, centerY)
+  }
+
+  setUpBonusCone () {
+    this.bonusCone = this.game.add.group()
+    let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.bonusCone.width)) / 2
+    let centerX = this.game.world.centerX - bricksGroupWidth
+    this.generateBonusCone(1, 5, 200, yOffset, centerX, this.yellowBrick.height - 200)
   }
 
   setUpObstacleBricks () {
@@ -133,6 +143,28 @@ export default class extends State {
     )
   }
 
+  generateBonusCone (inputRows, inputColumns, inputXOffset, inputYOffset, centerX, centerY) {
+    let rows = inputRows
+    let columns = inputColumns
+    let xOffset = inputXOffset
+    let yOffset = inputYOffset
+    let bonusCone
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < columns; x++) {
+        bonusCone = new BonusCone(
+          this.game,
+          x * xOffset,
+          y * yOffset
+        )
+        this.bonusCone.add(bonusCone)
+      }
+    }
+    this.bonusCone.position.setTo(
+      centerX,
+      centerY
+    )
+  }
+
   generateObstacleBricks (inputRows, inputColumns, inputXOffset, inputYOffset, centerX, centerY) {
     let rows = inputRows
     let columns = inputColumns
@@ -195,6 +227,14 @@ export default class extends State {
       null,
       this
     )
+
+    this.game.physics.arcade.collide(
+      this.ball,
+      this.bonusCone,
+      this.ballHitBonusCone,
+      null,
+      this
+    )
   }
 
   ballHitPaddle (ball, paddle) {
@@ -224,6 +264,22 @@ export default class extends State {
       return this.yellowBrick.countLiving()
     }
     this.game.global.level++
+    if (this.game.global.level === 4) {
+      return this.youWin()
+    }
+  }
+
+  ballHitBonusCone (ball, brick) {
+    this.game.add.audio('bonus').play()
+    this.ball.body.velocity.x = Math.floor(Math.random() * (200 - 100) + 100)
+    brick.kill()
+    this.game.global.score += 5
+    this.scoreText.text = `Score: ${this.game.global.score}`
+    if (this.bonusCone.countLiving() > 0) {
+      return this.bonusCone.countLiving()
+    }
+    // this.game.global.level++
+
     if (this.game.global.level === 4) {
       return this.youWin()
     }

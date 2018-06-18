@@ -38,6 +38,7 @@ export default class extends State {
     this.load.image('paddle', './assets/images/red-paddle.png')
     this.load.image('ball', './assets/images/head-ball.png')
     this.load.image('obstacleBrick', './assets/images/gray-brick.png')
+    this.load.image('bonusCone', './assets/images/blue-cone-bonus.png')
   }
 
   render () {

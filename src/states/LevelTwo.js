@@ -6,8 +6,8 @@ import BonusCone from '../prefabs/BonusCone'
 
 let xOffset = 60
 let yOffset = 50
-let rows = 1
-let columns = 2
+let rows = 5
+let columns = 15
 
 export default class extends State {
   constructor () {

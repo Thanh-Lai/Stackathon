@@ -1,5 +1,5 @@
 export default {
   score: 0,
   level: 1,
-  lives: 12
+  lives: 3
 }

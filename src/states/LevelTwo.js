@@ -7,7 +7,7 @@ import BonusCone from '../prefabs/BonusCone'
 let xOffset = 60
 let yOffset = 50
 let rows = 5
-let columns = 15
+let columns = 20
 
 export default class extends State {
   constructor () {
@@ -64,7 +64,7 @@ export default class extends State {
     this.bonusCone = this.game.add.group()
     let bricksGroupWidth = ((xOffset * columns) - (yOffset - this.bonusCone.width)) / 2
     let centerX = this.game.world.centerX - bricksGroupWidth
-    this.generateBonusCone(1, 5, 200, yOffset, centerX, this.yellowBrick.height - 200)
+    this.generateBonusCone(1, 5, 200, yOffset, centerX, this.yellowBrick.height - 150)
   }
 
   setUpPaddle () {

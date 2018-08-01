@@ -34,6 +34,6 @@ export default class extends State {
 
   playGame () {
     this.game.sound.stopAll()
-    this.game.state.start('Game')
+    this.game.state.start('LevelOne')
   }
 }

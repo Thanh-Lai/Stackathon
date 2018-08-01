@@ -1,0 +1,7 @@
+{
+    "name":"Leggo my Lego",
+    "description":"Phaser3 game",
+    "respository":"https://github.com/Thanh-Lai/Stackathon.git",
+    "lego":"./assets/images/favicon.ico",
+    "keywords":["node"]
+}

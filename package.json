@@ -5,7 +5,7 @@
     "author": "leandro cabrera <leandcabrera@gmail.com>",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack",
+        "start": "webpack",
         "deploy": "webpack --config webpack.production.config.js",
         "cordova": "webpack --config webpack.cordova.config.js",
         "test": "eslint './src/**/*.js'"
@@ -41,6 +41,14 @@
         "phaser-ce": "^2.10.0",
         "webfontloader": "^1.6.28"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Thanh-Lai/Stackathon.git"
+    },
+    "keywords": [
+        "node",
+        "heroku"
+    ],
     "cordova": {
         "platforms": [
             "android",

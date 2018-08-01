@@ -45,7 +45,7 @@ export default class extends State {
 
   setUpYellowBricks () {
     this.yellowBrick = this.game.add.group()
-    this.generateYellowBricks(5, 15, 60, 50)
+    this.generateYellowBricks(5, 20, 70, 60)
   }
 
   setUpPaddle () {

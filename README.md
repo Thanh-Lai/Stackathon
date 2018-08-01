@@ -14,7 +14,9 @@ You'll need to install a few things before you have a working copy of the projec
 
 Run:
 
-```git clone https://github.com/Thanh-Lai/Stackathon-Leggo-my-Lego.git```
+```sh
+git clone https://github.com/Thanh-Lai/Stackathon-Leggo-my-Lego.git
+```
 
 ## 2. Install node.js and npm:
 
@@ -28,14 +30,18 @@ Install all dependencies. Navigate to the cloned repo's directory.
 
 Run:
 
-```npm install``` 
+```sh
+npm install
+``` 
 
 
 ## 4. Run the server:
 
 Run:
 
-```npm start```
+``````sh
+npm start
+```
 
 This will run a server so you can run the game in a browser. It will also start a watch process, so you can change the source and the process will recompile and refresh the browser automatically.
 

@@ -39,7 +39,7 @@ npm install
 
 Run:
 
-``````sh
+```sh
 npm start
 ```
 

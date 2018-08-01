@@ -37,7 +37,7 @@ export default class extends State {
   }
 
   restartGame () {
-    this.game.state.start('Game')
+    this.game.state.start('LevelOne')
     this.reSetGlobal()
   }
 

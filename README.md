@@ -6,6 +6,7 @@
 "Leggo my Lego" is built in JavaScript using Phaser.js. It currently comprises of three levels that increases in difficulty as you level up. Hit the yellow bricks to get one point and the blue bonus cones to get five points. Avoid the gray bricks as your ball will bounce off these bricks.
 
 Play it at: http://www.leggo-my-lego.com/
+** Please be patient for the game to load. Thank you and enjoy the game!
 
 # Setup
 You'll need to install a few things before you have a working copy of the project.
